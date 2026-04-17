@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ReviewsSlider } from "@/components/ReviewsSlider";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { faqItems } from "@/lib/faq";
@@ -29,6 +30,27 @@ const rangeCards = [
   },
 ] as const;
 
+const visitorAudiences = [
+  {
+    title: "Locals & regulars",
+    text: "If Leeds is home, you probably already know how handy it is to have somewhere that still feels awake when the rest of the street has gone quiet. Regulars pop in for the same chocolate bar every Friday, for milk and fruit on the way back from town, or for a four-pack when friends are on the sofa. We try to remember preferences without making a fuss — that is what neighbourhood shops are for.",
+    img: "/products1.jpg",
+    alt: "Everyday snacks and drinks on the shelves",
+  },
+  {
+    title: "Visitors & hotel guests",
+    text: "If you are visiting for work, a weekend away or a longer trip, reviews often mention how close we are to central hotels — easy for a cold drink, a magazine for the journey, or something sweet before you turn in. People travelling from Northern Ireland and further afield have told us they are glad to find a favourite wine or a familiar snack after a long day on the road. Ask at the counter if you are unsure what to pick; we would rather point you right than sell you wrong.",
+    img: "/shoppic.jpg",
+    alt: "Magazines and goods for travellers",
+  },
+  {
+    title: "Night owls & shift workers",
+    text: "Leeds never really switches off — hospitality, security, drivers, musicians and a hundred other jobs keep the city moving while most people sleep. When your break lands at an odd hour, a bright shop with cold drinks, hot snacks and someone awake at the till matters more than people think. We are grateful to everyone who trusts us on those late walks home.",
+    img: "/products4.jpg",
+    alt: "Chilled drinks and late-night essentials",
+  },
+] as const;
+
 const moreRange = [
   {
     title: "Fresh fruit & everyday groceries",
@@ -55,23 +77,28 @@ export default function Home() {
     <>
       <SiteHeader />
       <main>
-        <section className="relative overflow-hidden bg-[#050a1c] text-cream">
+        <section className="relative isolate min-h-[min(100dvh,56rem)] overflow-hidden bg-[#050a1c] text-cream">
           <div className="absolute inset-0">
             <Image
-              src="/imageoutside.png"
-              alt="Your City News & Off Licence — storefront on Bishopgate Street, Leeds"
+              src="/beautfullbg.jpg"
+              alt="Bright, colourful interior of Your City News and Off Licence, Leeds"
               fill
               priority
-              className="object-cover object-center opacity-35 saturate-[0.85]"
+              className="object-cover object-center"
               sizes="100vw"
             />
-            {/* Deep base + brand wash — easier on the eyes than flat electric blue */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#030712] via-brand/88 to-[#0a1a4a]" />
-            {/* Warm lift (cozy) + vignette so type stays readable */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-amber-950/10 to-brand-dark/35" />
-            <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_20%_0%,rgba(255,250,240,0.12),transparent_55%)]" />
+            {/* Tint + vignette: strong enough for type, light enough to see the photo */}
+            <div
+              className="absolute inset-0 bg-gradient-to-br from-[#030712]/85 via-brand/45 to-[#0a1a4a]/80"
+              aria-hidden
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" aria-hidden />
+            <div
+              className="absolute inset-0 bg-[radial-gradient(100%_70%_at_0%_0%,rgba(0,0,0,0.35),transparent_50%)]"
+              aria-hidden
+            />
           </div>
-          <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:py-32">
+          <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:py-32">
             <p className="mb-3 inline-flex rounded-full border border-cream/35 bg-cream/10 px-3 py-1 text-xs font-medium uppercase tracking-widest text-cream">
               Leeds city centre · 86 Bishopgate Street · LS1 4BB
             </p>
@@ -136,20 +163,31 @@ export default function Home() {
         </section>
 
         <section className="border-b border-slate-200/80 bg-cream py-16 sm:py-20" id="story">
-          <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
-            <h2 className="font-display text-2xl font-semibold text-brand sm:text-3xl">More than a quick transaction</h2>
-            <p className="mt-5 text-slate-600 leading-relaxed">
-              Independent shops like ours are where Leeds keeps its personality — a counter where you can ask a
-              question without an app, where staff recognise regulars, and where visitors stumble on something they did
-              not know they wanted. Your City News &amp; Off Licence has grown into that kind of place: part newsagent,
-              part off licence, part late-night port in a storm.
-            </p>
-            <p className="mt-4 text-slate-600 leading-relaxed">
-              We are proud of the mix of people who use the shop: night workers grabbing something cold after a shift,
-              students between lectures, rugby and gig crowds, hotel guests stepping out for two minutes, and neighbours
-              who have called Leeds home for decades. However long you stay — thirty seconds or ten minutes at the
-              door — we try to make it feel worth the walk.
-            </p>
+          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 sm:grid-cols-2 sm:gap-12 sm:px-6">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-card ring-1 ring-slate-200/70 sm:aspect-[5/4]">
+              <Image
+                src="/shopic1.jpg"
+                alt="Your City News shop front on Bishopgate Street"
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, 50vw"
+              />
+            </div>
+            <div className="text-center sm:text-left">
+              <h2 className="font-display text-2xl font-semibold text-brand sm:text-3xl">More than a quick transaction</h2>
+              <p className="mt-5 text-slate-600 leading-relaxed">
+                Independent shops like ours are where Leeds keeps its personality — a counter where you can ask a
+                question without an app, where staff recognise regulars, and where visitors stumble on something they did
+                not know they wanted. Your City News &amp; Off Licence has grown into that kind of place: part newsagent,
+                part off licence, part late-night port in a storm.
+              </p>
+              <p className="mt-4 text-slate-600 leading-relaxed">
+                We are proud of the mix of people who use the shop: night workers grabbing something cold after a shift,
+                students between lectures, rugby and gig crowds, hotel guests stepping out for two minutes, and neighbours
+                who have called Leeds home for decades. However long you stay — thirty seconds or ten minutes at the
+                door — we try to make it feel worth the walk.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -167,26 +205,21 @@ export default function Home() {
             <div>
               <h2 className="font-display text-3xl font-semibold text-brand sm:text-4xl">A proper Leeds welcome</h2>
               <p className="mt-5 text-slate-600 leading-relaxed">
-                Whether you are picking up a cold drink after work, choosing a bottle for the weekend, grabbing your
-                favourite magazine before a journey north or south, or simply filling a gap in the cupboard on the way
-                home, we want the shop to feel straightforward and warm. Many guests say it feels less like a formal
-                retail visit and more like dropping into a place where people actually talk to one another — which, for
-                us, is the best compliment we could get.
+                Cold drink after work, weekend bottle, magazine for the train, or a quick cupboard top-up — we keep it
+                straightforward and warm. When people say it feels more like a chat than a formal shop visit, that is the
+                compliment we want.
               </p>
               <p className="mt-4 text-slate-600 leading-relaxed">
-                We keep the shelves honest: familiar brands people trust, seasonal treats when we can get them, and
-                enough variety that you are not seeing the same three options every time. Behind the counter you will
-                find staff who know the stock and are not shy about an opinion — on a crisp Sauvignon, a chocolate bar,
-                or which energy drink the regulars are joking about this week.
+                Honest shelves: brands you know, seasonal bits when we can, and staff who know the stock — happy to
+                nudge you on wine, snacks, or what the regulars are on about this week.
               </p>
-              <ul className="mt-8 space-y-3 text-slate-700">
+              <ul className="mt-6 space-y-2.5 text-slate-700">
                 {[
-                  "Daily papers, magazines and travel-friendly reads",
-                  "Soft drinks, energy drinks, mixers and chilled lines",
-                  "Lager, ale, cider, wine and spirits — ask for recommendations",
-                  "Crisps, chocolate, sweets and savoury snacks",
-                  "Stamps, cards and small essentials when you are in a hurry",
-                  "Fruit and grocery bits for the room or the flat",
+                  "Papers, magazines & reads for the road",
+                  "Soft drinks, mixers, chilled lines & off-licence favourites",
+                  "Beer, cider, wine & spirits — ask for a recommendation",
+                  "Snacks, sweets, cards, stamps & small essentials",
+                  "Fruit & grocery bits for home or the hotel",
                 ].map((item) => (
                   <li key={item} className="flex gap-3 text-sm leading-relaxed">
                     <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" aria-hidden />
@@ -196,7 +229,7 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="mx-auto mt-16 max-w-3xl px-4 sm:px-6">
+          <div className="mx-auto mt-16 grid max-w-6xl gap-10 px-4 sm:grid-cols-2 sm:items-center sm:px-6">
             <p className="text-slate-600 leading-relaxed">
               Travel guides and visitor write-ups sometimes call the atmosphere here a &ldquo;late-night hangout&rdquo; as
               much as a shop — friendships struck up over the counter, lively chat, and staff who greet you with a smile
@@ -204,6 +237,15 @@ export default function Home() {
               fast. But we do try to keep the lights on and the kettle logic of a good corner shop: fair stock, fair
               chat, and a door that opens when you need it.
             </p>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-soft ring-1 ring-slate-200/60">
+              <Image
+                src="/products5.jpg"
+                alt="Colourful stock on display inside the shop"
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, 50vw"
+              />
+            </div>
           </div>
         </section>
 
@@ -219,34 +261,20 @@ export default function Home() {
               </p>
             </div>
             <div className="mt-12 grid gap-8 lg:grid-cols-3">
-              <article className="rounded-2xl border border-slate-200/80 bg-white p-8 shadow-soft">
-                <h3 className="font-display text-xl font-semibold text-brand">Locals &amp; regulars</h3>
-                <p className="mt-4 text-sm text-slate-600 leading-relaxed">
-                  If Leeds is home, you probably already know how handy it is to have somewhere that still feels awake
-                  when the rest of the street has gone quiet. Regulars pop in for the same chocolate bar every Friday,
-                  for milk and fruit on the way back from town, or for a four-pack when friends are on the sofa. We try
-                  to remember preferences without making a fuss — that is what neighbourhood shops are for.
-                </p>
-              </article>
-              <article className="rounded-2xl border border-slate-200/80 bg-white p-8 shadow-soft">
-                <h3 className="font-display text-xl font-semibold text-brand">Visitors &amp; hotel guests</h3>
-                <p className="mt-4 text-sm text-slate-600 leading-relaxed">
-                  If you are visiting for work, a weekend away or a longer trip, reviews often mention how close we are
-                  to central hotels — easy for a cold drink, a magazine for the journey, or something sweet before you
-                  turn in. People travelling from Northern Ireland and further afield have told us they are glad to find
-                  a favourite wine or a familiar snack after a long day on the road. Ask at the counter if you are
-                  unsure what to pick; we would rather point you right than sell you wrong.
-                </p>
-              </article>
-              <article className="rounded-2xl border border-slate-200/80 bg-white p-8 shadow-soft">
-                <h3 className="font-display text-xl font-semibold text-brand">Night owls &amp; shift workers</h3>
-                <p className="mt-4 text-sm text-slate-600 leading-relaxed">
-                  Leeds never really switches off — hospitality, security, drivers, musicians and a hundred other jobs
-                  keep the city moving while most people sleep. When your break lands at an odd hour, a bright shop with
-                  cold drinks, hot snacks and someone awake at the till matters more than people think. We are grateful
-                  to everyone who trusts us on those late walks home.
-                </p>
-              </article>
+              {visitorAudiences.map((card) => (
+                <article
+                  key={card.title}
+                  className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-soft"
+                >
+                  <div className="relative aspect-[16/10]">
+                    <Image src={card.img} alt={card.alt} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 33vw" />
+                  </div>
+                  <div className="p-8">
+                    <h3 className="font-display text-xl font-semibold text-brand">{card.title}</h3>
+                    <p className="mt-4 text-sm text-slate-600 leading-relaxed">{card.text}</p>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
@@ -315,84 +343,159 @@ export default function Home() {
         </section>
 
         <section className="bg-brand py-16 text-white sm:py-24" id="gallery">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6">
             <h2 className="font-display text-3xl font-semibold sm:text-4xl">Inside the buzz</h2>
-            <p className="mt-4 max-w-3xl text-white/80 leading-relaxed">
+            <p className="mt-4 text-white/80 leading-relaxed">
               Colourful shelves, chilled cabinets and the little details that make a small shop feel alive — we refresh
               displays as stock lands so there is always something catching the eye. Whether you are in for thirty
               seconds or you linger for a chat, we hope it feels like Leeds: unpretentious, busy in the best way, and a
               bit warmer than the weather outside.
             </p>
-            <div className="mt-12 grid gap-6 md:grid-cols-2">
-              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl ring-1 ring-white/20">
-                <Image src="/shoppic2.jpg" alt="Interior of Your City News with shelves of stock" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
-              </div>
-              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl ring-1 ring-white/20">
-                <Image src="/shopic.jpg" alt="Shop front and signage on Bishopgate Street" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
-              </div>
-            </div>
           </div>
         </section>
 
         <section className="border-b border-slate-200/80 bg-cream py-16 sm:py-24" id="leeds">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6">
-            <h2 className="font-display text-3xl font-semibold text-brand sm:text-4xl">On the ground in Leeds</h2>
-            <p className="mt-5 text-slate-600 leading-relaxed">
-              Leeds city centre keeps growing — new flats, new offices, new faces every semester — but it still runs on
-              small independents that know their street. Bishopgate Street connects you to the rhythm of the centre:
-              close enough to walk from the station or the main shopping blocks, but grounded enough that people live
-              and work here year-round, not only on Saturdays.
-            </p>
-            <p className="mt-4 text-slate-600 leading-relaxed">
-              We think that matters for how a shop behaves. Your City News is not a pop-up or a faceless franchise; it
-              is part of the daily texture of LS1. When you spend your money here, it stays in the city in a way that
-              matters — wages for local staff, orders from regional suppliers, and a frontage that still looks like Leeds
-              rather than anywhere else on the map.
-            </p>
-            <p className="mt-4 text-slate-600 leading-relaxed">
-              If you are new to the area, say hello. If you are old Leeds through and through, tell us what we should
-              stock next. Either way, we are glad you found us — and we hope you leave with exactly what you needed, plus
-              maybe one thing you did not know you wanted until you saw it on the shelf.
-            </p>
+          <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:grid-cols-2 sm:items-center sm:gap-14 sm:px-6">
+            <div className="order-2 sm:order-1">
+              <h2 className="font-display text-3xl font-semibold text-brand sm:text-4xl">On the ground in Leeds</h2>
+              <p className="mt-5 text-slate-600 leading-relaxed">
+                Leeds city centre keeps growing — new flats, new offices, new faces every semester — but it still runs on
+                small independents that know their street. Bishopgate Street connects you to the rhythm of the centre:
+                close enough to walk from the station or the main shopping blocks, but grounded enough that people live
+                and work here year-round, not only on Saturdays.
+              </p>
+              <p className="mt-4 text-slate-600 leading-relaxed">
+                We think that matters for how a shop behaves. Your City News is not a pop-up or a faceless franchise; it
+                is part of the daily texture of LS1. When you spend your money here, it stays in the city in a way that
+                matters — wages for local staff, orders from regional suppliers, and a frontage that still looks like Leeds
+                rather than anywhere else on the map.
+              </p>
+              <p className="mt-4 text-slate-600 leading-relaxed">
+                If you are new to the area, say hello. If you are old Leeds through and through, tell us what we should
+                stock next. Either way, we are glad you found us — and we hope you leave with exactly what you needed, plus
+                maybe one thing you did not know you wanted until you saw it on the shelf.
+              </p>
+            </div>
+            <div className="relative order-1 aspect-[4/3] overflow-hidden rounded-2xl shadow-card ring-1 ring-slate-200/70 sm:order-2">
+              <Image
+                src="/products6.jpg"
+                alt="Leeds city life — products and signage in the shop window"
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, 50vw"
+              />
+            </div>
           </div>
         </section>
 
-        <section className="bg-white py-16 sm:py-24" id="payments">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-              <div>
-                <h2 className="font-display text-3xl font-semibold text-brand sm:text-4xl">Payments &amp; quick visits</h2>
-                <p className="mt-5 text-slate-600 leading-relaxed">
+        <section
+          className="relative overflow-hidden border-b border-slate-200/80 bg-gradient-to-b from-warm/50 via-cream/40 to-white py-16 sm:py-28"
+          id="payments"
+        >
+          <div
+            className="pointer-events-none absolute -right-24 -top-32 h-80 w-80 rounded-full bg-brand/[0.07] blur-3xl sm:-right-32 sm:h-[28rem] sm:w-[28rem]"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-brand/[0.05] blur-3xl"
+            aria-hidden
+          />
+          <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+            <div className="grid items-start gap-14 lg:grid-cols-2 lg:gap-20">
+              <div className="relative">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand/75">At the till</p>
+                <h2 className="font-display mt-3 text-3xl font-semibold text-brand sm:text-4xl">
+                  Payments &amp; quick visits
+                </h2>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {["Cards", "Contactless", "Apple & Google Pay", "Cash"].map((label) => (
+                    <span
+                      key={label}
+                      className="inline-flex items-center rounded-full border border-brand/15 bg-white/80 px-3.5 py-1 text-xs font-medium text-brand shadow-sm backdrop-blur-sm"
+                    >
+                      {label}
+                    </span>
+                  ))}
+                </div>
+                <p className="mt-7 text-slate-600 leading-relaxed">
                   For many people, a corner shop is only as good as how fast they can get in and out. We accept major
                   credit and debit cards where available, contactless cards, and NFC mobile payments so you can tap and
                   go when you are rushing to a train or back to a hotel. Cash is welcome too.
                 </p>
-                <p className="mt-4 text-slate-600 leading-relaxed">
+                <p className="mt-4 rounded-2xl border border-slate-200/80 bg-white/70 p-5 text-slate-600 leading-relaxed shadow-sm backdrop-blur-sm">
                   Google lists us with options including delivery and &ldquo;quick visit&rdquo; — availability can change,
                   so if you need something brought out or you are unsure whether we can help with a larger order, the
                   quickest route is always a phone call. We would rather set expectations honestly than promise
                   something we cannot deliver on the day.
                 </p>
               </div>
-              <div className="rounded-2xl border border-slate-200/80 bg-warm p-8 shadow-soft">
-                <h3 className="font-display text-xl font-semibold text-brand">Before you visit</h3>
-                <ul className="mt-5 space-y-4 text-sm text-slate-600 leading-relaxed">
-                  <li>
-                    <span className="font-semibold text-slate-800">Planning:</span> If you are organising a one-off
-                    trip or meeting friends nearby, save our address in your maps app — 86 Bishopgate Street, Leeds LS1
-                    4BB — so you are not hunting signal on the pavement.
-                  </li>
-                  <li>
-                    <span className="font-semibold text-slate-800">Peak times:</span> Weekends, match days and gig
-                    nights can mean a busier counter. We will move everyone through as quickly as we can while still
-                    answering questions properly.
-                  </li>
-                  <li>
-                    <span className="font-semibold text-slate-800">Special requests:</span> If you need a particular
-                    magazine issue, a multipack, or a type of wine you cannot see, ask. We cannot magic every product
-                    into existence, but we can often tell you when the next delivery is due or suggest a close alternative.
-                  </li>
-                </ul>
+
+              <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-warm via-cream to-[#f5f0e8] shadow-[0_24px_60px_-18px_rgba(13,46,157,0.18)] ring-1 ring-brand/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_-16px_rgba(13,46,157,0.24)]">
+                <div className="relative aspect-[2/1] w-full overflow-hidden sm:aspect-[21/9]">
+                  <Image
+                    src="/products8.jpg"
+                    alt="Shelves stocked for your visit"
+                    fill
+                    className="object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-90"
+                    aria-hidden
+                  />
+                </div>
+                <div className="relative px-7 pb-8 pt-7 sm:px-9 sm:pb-9 sm:pt-8">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand/70">Plan your trip</p>
+                  <h3 className="font-display mt-2 text-2xl font-semibold text-brand">Before you visit</h3>
+                  <ul className="mt-6 space-y-0 divide-y divide-slate-300/50 text-sm text-slate-600 leading-relaxed">
+                    <li className="flex gap-4 pb-5 pt-0">
+                      <span
+                        className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand/12 text-xs font-bold text-brand"
+                        aria-hidden
+                      >
+                        1
+                      </span>
+                      <div>
+                        <span className="font-semibold text-slate-800">Planning</span>
+                        <p className="mt-1.5">
+                          If you are organising a one-off trip or meeting friends nearby, save our address in your maps
+                          app — 86 Bishopgate Street, Leeds LS1 4BB — so you are not hunting signal on the pavement.
+                        </p>
+                      </div>
+                    </li>
+                    <li className="flex gap-4 py-5">
+                      <span
+                        className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand/12 text-xs font-bold text-brand"
+                        aria-hidden
+                      >
+                        2
+                      </span>
+                      <div>
+                        <span className="font-semibold text-slate-800">Peak times</span>
+                        <p className="mt-1.5">
+                          Weekends, match days and gig nights can mean a busier counter. We will move everyone through
+                          as quickly as we can while still answering questions properly.
+                        </p>
+                      </div>
+                    </li>
+                    <li className="flex gap-4 pt-5">
+                      <span
+                        className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand/12 text-xs font-bold text-brand"
+                        aria-hidden
+                      >
+                        3
+                      </span>
+                      <div>
+                        <span className="font-semibold text-slate-800">Special requests</span>
+                        <p className="mt-1.5">
+                          If you need a particular magazine issue, a multipack, or a type of wine you cannot see, ask.
+                          We cannot magic every product into existence, but we can often tell you when the next delivery
+                          is due or suggest a close alternative.
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -414,20 +517,7 @@ export default function Home() {
                 we wince — it keeps us grounded.
               </p>
             </div>
-            <div className="mt-12 columns-1 gap-6 sm:columns-2 lg:columns-3">
-              {reviews.map((r) => (
-                <blockquote
-                  key={r.name + r.quote.slice(0, 28)}
-                  className="mb-6 break-inside-avoid rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm"
-                >
-                  <p className="text-sm leading-relaxed text-white/95">&ldquo;{r.quote}&rdquo;</p>
-                  <footer className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-white/10 pt-4 text-xs text-white/65">
-                    <cite className="not-italic font-semibold text-white/90">{r.name}</cite>
-                    <span>{r.timeAgo}</span>
-                  </footer>
-                </blockquote>
-              ))}
-            </div>
+            <ReviewsSlider reviews={reviews.slice(0, 5)} />
           </div>
         </section>
 
@@ -442,17 +532,19 @@ export default function Home() {
               {faqItems.map((item) => (
                 <details
                   key={item.q}
-                  className="group rounded-2xl border border-slate-200/90 bg-white px-5 py-1 shadow-soft open:shadow-card"
+                  className="group overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-soft open:shadow-card"
                 >
-                  <summary className="cursor-pointer list-none py-4 font-semibold text-brand marker:content-none [&::-webkit-details-marker]:hidden">
-                    <span className="flex items-center justify-between gap-3">
-                      {item.q}
-                      <span className="text-slate-400 transition group-open:rotate-45" aria-hidden>
+                  <summary className="flex cursor-pointer list-none items-center gap-3 px-5 py-4 font-semibold text-brand marker:content-none [&::-webkit-details-marker]:hidden">
+                    <span className="flex min-w-0 flex-1 items-center justify-between gap-3">
+                      <span>{item.q}</span>
+                      <span className="shrink-0 text-slate-400 transition group-open:rotate-45" aria-hidden>
                         +
                       </span>
                     </span>
                   </summary>
-                  <p className="border-t border-slate-100 pb-4 pt-2 text-sm text-slate-600 leading-relaxed">{item.a}</p>
+                  <p className="border-t border-slate-100 px-5 pb-4 pt-3 text-sm text-slate-600 leading-relaxed">
+                    {item.a}
+                  </p>
                 </details>
               ))}
             </div>
@@ -460,7 +552,7 @@ export default function Home() {
         </section>
 
         <section className="border-t border-slate-200/80 bg-white py-16 sm:py-24" id="visit">
-          <div className="mx-auto grid max-w-6xl gap-12 px-4 lg:grid-cols-2 lg:gap-16 sm:px-6">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6">
             <div>
               <h2 className="font-display text-3xl font-semibold text-brand sm:text-4xl">Visit us</h2>
               <address className="mt-5 not-italic text-slate-600 leading-relaxed">
@@ -515,18 +607,7 @@ export default function Home() {
                   Open in Google Maps
                 </a>
               </div>
-            </div>
-            <div className="flex flex-col gap-6">
-              <div className="relative min-h-[280px] flex-1 overflow-hidden rounded-2xl shadow-card ring-1 ring-slate-200/80 lg:min-h-[340px]">
-                <Image
-                  src="/shopic.jpg"
-                  alt="Your City News shop front and signage"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
-              <p className="text-sm text-slate-500 leading-relaxed">
+              <p className="mt-8 text-sm text-slate-500 leading-relaxed">
                 Mentioned on travel and listing sites including{" "}
                 <Link
                   href="https://wanderlog.com/place/details/15083459/your-city-news-leeds"
@@ -544,8 +625,8 @@ export default function Home() {
         </section>
 
         <section className="border-t border-slate-200 bg-warm py-12">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <p className="text-center text-sm text-slate-600 leading-relaxed">
+          <div className="mx-auto max-w-xl px-4 text-center sm:px-6">
+            <p className="text-sm text-slate-600 leading-relaxed">
               Your City News &amp; Off Licence — 86 Bishopgate Street, Leeds LS1 4BB — newsagent and off licence in the
               heart of the city. Open late, stocked wide, and glad to see you.
             </p>
